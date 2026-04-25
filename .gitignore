@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+*.egg-info/
+MANIFEST
+
+# gh CLI (download your own)
+bin/gh.exe
+gh.zip
+
+# Test fixtures (if added later)
+tests/fixtures/
