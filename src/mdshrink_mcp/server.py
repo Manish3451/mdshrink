@@ -8,7 +8,7 @@ from . import image as image_module
 from . import cache
 from . import tokens as tokens_module
 
-mcp = FastMCP("tokensaver")
+mcp = FastMCP("mdshrink")
 
 
 def _resolve_path(path: str) -> Path:

@@ -1,86 +1,115 @@
-# TokenSaver MCP
+# mdshrink
 
-A Claude Code MCP server that auto-converts PDFs and screenshots to compact Markdown before they hit the model, cutting token usage 5-10x without losing semantic content.
+> Auto-compress PDFs and screenshots to Markdown before they hit Claude Code's context. 5-10x fewer tokens, fully local, one-line install.
 
-## Features
+[![PyPI Version](https://img.shields.io/pypi/v/mdshrink-mcp)](https://pypi.org/project/mdshrink-mcp)
+[![Python Versions](https://img.shields.io/pypi/pyversions/mdshrink-mcp)](https://pypi.org/project/mdshrink-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![GitHub Actions CI](https://github.com/Manish3451/mdshrink/actions/workflows/ci.yml/badge.svg)](https://github.com/Manish3451/mdshrink/actions)
 
-- **PDF to Markdown** - Converts text-native PDFs to clean Markdown with heading detection
-- **Image OCR** - Extracts text from screenshots using RapidOCR
-- **Content-addressed cache** - Converts same file only once
-- **Token reporting** - Shows original vs compressed token counts
+## What is mdshrink?
+
+mdshrink is an MCP server that automatically converts PDFs and screenshots to compact Markdown **before** they hit Claude Code's context window. It preserves semantic content while reducing token usage by 5-10x.
+
+### Why?
+
+When you attach a PDF or screenshot in Claude Code:
+- A typical 20-page PDF consumes **25k-40k tokens**
+- A single screenshot consumes **1.5k-3k tokens** per image
+
+Most of those tokens are visual redundancy - fonts, layout, whitespace - that the model doesn't need. mdshrink extracts the semantic content and discards the bloat.
 
 ## Installation
 
 ```bash
-pip install tokensaver-mcp
+pip install mdshrink-mcp
+claude mcp add mdshrink -- mdshrink
 ```
 
-## Claude Code Setup
-
-```bash
-claude mcp add tokensaver -- tokensaver-mcp
-```
-
-Then restart Claude Code.
+Restart Claude Code. That's it.
 
 ## Usage
 
-Once installed, Claude Code will automatically call the compression tools before reading PDF or image files. The tools exposed are:
+Once installed, Claude Code will automatically call mdshrink tools before reading PDF or image files:
 
-- `compress_pdf` - Converts PDF to Markdown
-- `compress_image` - Extracts text from images via OCR
-- `get_compressed` - Cache lookup
-
-## Token Savings
+- **`compress_pdf`** - Converts PDFs to compact Markdown
+- **`compress_image`** - OCR extracts text from screenshots
+- **`get_compressed`** - Cache lookup (fast check)
 
 Each conversion reports:
 - `original_tokens` - Estimated tokens for native file
-- `compressed_tokens` - Actual tokens in Markdown
+- `compressed_tokens` - Actual tokens in Markdown  
 - `ratio` - Compression ratio (e.g., "5.2x")
 
-## Cache
+## What It Compresses Well
 
-Cached files are stored in:
-- Linux/macOS: `~/.cache/tokensaver/`
-- Windows: `%LOCALAPPDATA%\tokensaver\`
+| Type | Compression | Notes |
+|------|-------------|-------|
+| Text-native PDFs | 5-10x | API specs, RFCs, papers, contracts |
+| Screenshots of text | 3-5x | Code, error messages, docs, terminal |
+| Scanned docs | Varies | Requires OCR (future) |
 
-To disable caching: `TOKENSAVER_NO_CACHE=1`
+## What It Doesn't Compress
 
-To clear cache:
-```python
-from tokensaver_mcp import cache
-cache.clear_cache()
-```
-
-## Requirements
-
-- Python 3.10+
-- PyMuPDF (AGPL)
-- RapidOCR
-- tiktoken
-
-## License
-
-AGPL-3.0 - See LICENSE file for details.
-
-**Note:** PyMuPDF is AGPL-licensed. If you need MIT compatibility, consider `pdfminer.six` as an alternative backend.
+- Scanned/image-only PDFs (v1.1+)
+- Tables with complex merged cells
+- Equations and charts
+- Photos where visual IS the content
+- Diagrams (v1.2+ with VLM)
 
 ## Troubleshooting
 
 ### Tool not triggering?
 
-Make sure Claude Code has loaded the MCP server:
 ```bash
 /mcp
 ```
 
-### Wrong compression ratio?
+Should show:
+```
+✔ Found 1 MCP server
+  • mdshrink: connected (3 tools)
+```
 
-Token counts are estimates using `cl100k_base` tokenizer. Ratios are meaningful; absolute numbers are approximate.
+If not, reinstall:
+```bash
+claude mcp remove mdshrink
+claude mcp add mdshrink -- mdshrink
+```
+
+### Permission errors on Windows
+
+Run PowerShell as Administrator, then:
+```bash
+pip install --force-reinstall mdshrink-mcp
+```
+
+### Cache location
+
+- Linux/macOS: `~/.cache/mdshrink/`
+- Windows: `%LOCALAPPDATA%\mdshrink\`
+
+Disable caching: `MDSHRINK_NO_CACHE=1`
+
+Clear cache:
+```python
+from mdshrink_mcp import cache
+cache.clear_cache()
+```
 
 ## Uninstall
 
 ```bash
-claude mcp remove tokensaver
-pip uninstall tokensaver-mcp
+claude mcp remove mdshrink
+pip uninstall mdshrink-mcp
 ```
+
+## License
+
+MIT - See [LICENSE](LICENSE) for details.
+
+## Credits
+
+- [PyMuPDF](https://github.com/pymupdf/PyMuPDF) - PDF processing
+- [RapidOCR](https://github.com/PaddlePaddle/PaddleOCR) - OCR engine
+- [Anthropic](https://anthropic.com) - MCP specification

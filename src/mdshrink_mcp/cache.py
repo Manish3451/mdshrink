@@ -5,7 +5,7 @@ import shutil
 from pathlib import Path
 from typing import Optional, Tuple
 
-CACHE_DIR_NAME = "tokensaver"
+CACHE_DIR_NAME = "mdshrink"
 MAX_CACHE_SIZE = 500 * 1024 * 1024
 
 

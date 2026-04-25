@@ -3,17 +3,17 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "tokensaver-mcp"
-version = "1.0.0"
-description = "MCP server that auto-compresses PDFs and screenshots to Markdown, reducing token usage 5-10x"
+name = "mdshrink-mcp"
+version = "0.1.0"
+description = "Auto-compress PDFs and screenshots to Markdown before they hit Claude Code's context — 5-10x fewer tokens"
 readme = "README.md"
-license = "AGPL-3.0"
+license = "MIT"
 authors = [{ name = "Manish" }]
 requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -27,14 +27,14 @@ dependencies = [
 ]
 
 [project.scripts]
-tokensaver-mcp = "tokensaver_mcp.cli:main"
+mdshrink = "mdshrink_mcp.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/anomalyco/tokensaver-mcp"
-PyPI = "https://pypi.org/project/tokensaver-mcp"
+Homepage = "https://github.com/Manish3451/mdshrink"
+PyPI = "https://pypi.org/project/mdshrink-mcp"
 
 [tool.hatchling.build.targets.wheel]
-packages = ["tokensaver_mcp"]
+packages = ["mdshrink_mcp"]
 
 [tool.hatchling.build.targets.wheel.package-dir]
 "" = "src"
