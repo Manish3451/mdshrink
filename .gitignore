@@ -27,8 +27,11 @@ Thumbs.db
 MANIFEST
 
 # gh CLI (download your own)
-bin/gh.exe
+bin/
 gh.zip
+
+# Virtual env
+venv/
 
 # Test fixtures (if added later)
 tests/fixtures/

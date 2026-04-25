@@ -1,0 +1,4 @@
+mcp>=1.0.0
+pymupdf>=1.25.0
+rapidocr-onnxruntime>=1.4.0
+tiktoken>=0.7.0
