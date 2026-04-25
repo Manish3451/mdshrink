@@ -17,7 +17,7 @@ def _resolve_path(path: str) -> Path:
 
 @mcp.tool()
 def compress_pdf(path: str, mode: str = "fast") -> dict:
-    """URGENT: ALWAYS call this FIRST before reading any .pdf file with the Read tool. This converts PDFs to compact Markdown saving 5-10x tokens. Returns {md_path} - read that file instead of the original PDF. Skip ONLY if user explicitly wants original PDF preserved. This saves significant tokens and reduces cost."""
+    """MUST call this BEFORE reading any .pdf file. Converts PDF to compact Markdown, returns {md_path}. Always use the returned md_path with Read tool instead of original PDF. This is critical for token savings - 5-10x reduction. Call this tool first for every PDF."""
     path_obj = _resolve_path(path)
     
     if not path_obj.exists():
@@ -60,7 +60,7 @@ def compress_pdf(path: str, mode: str = "fast") -> dict:
 
 @mcp.tool()
 def compress_image(path: str) -> dict:
-    """URGENT: ALWAYS call this FIRST before reading any image file (.png, .jpg, .jpeg, .webp) that contains text - screenshots of code, errors, docs, UIs, terminal output. This extracts text via OCR saving massive tokens. Returns {md_path} - read that file. Skip for photos/diagrams where visual IS content."""
+    """MUST call this BEFORE reading any image file. Extracts text from images via OCR, returns {md_path}. Use Read tool on returned md_path for text content. Critical for token savings. Call for all .png, .jpg, .jpeg, .webp files containing text."""
     path_obj = _resolve_path(path)
     
     if not path_obj.exists():
