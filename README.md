@@ -2,10 +2,10 @@
 
 > Auto-compress PDFs and screenshots to Markdown before they hit Claude Code's context. 5-10x fewer tokens, fully local, one-line install.
 
-[![PyPI Version](https://img.shields.io/pypi/v/mdshrink-mcp)](https://pypi.org/project/mdshrink-mcp)
-[![Python Versions](https://img.shields.io/pypi/pyversions/mdshrink-mcp)](https://pypi.org/project/mdshrink-mcp)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![GitHub Actions CI](https://github.com/Manish3451/mdshrink/actions/workflows/ci.yml/badge.svg)](https://github.com/Manish3451/mdshrink/actions)
+[![pypi](https://img.shields.io/pypi/v/mdshrink-mcp?label=pypi)](https://pypi.org/project/mdshrink-mcp)
+[![python](https://img.shields.io/pypi/pyversions/mdshrink-mcp?label=python)](https://pypi.org/project/mdshrink-mcp)
+[![license](https://img.shields.io/github/license/Manish3451/mdshrink?label=MIT)](LICENSE)
+[![ci](https://img.shields.io/github/actions/workflow/status/Manish3451/mdshrink/ci.yml?label=CI)](https://github.com/Manish3451/mdshrink/actions)
 
 ## What is mdshrink?
 
